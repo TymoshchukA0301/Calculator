@@ -22,12 +22,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun numberButtonClick(view: View) {
-        val screenTextView: TextView = findViewById<TextView>(R.id.screenTextView)
+        val screenTextView: TextView = findViewById(R.id.screenTextView)
         if (view is AppCompatButton) {
             if (view.text.equals(getString(R.string.point))) {
                 if (!screenTextView.text.contains(getString(R.string.point)))
                     screenTextView.append(getString(R.string.point))
-            } else if (screenTextView.text.equals(getString(R.string.zero))) {
+            } else if (screenTextView.text.equals(getString(R.string.zero)) ||
+                (screenTextView.text.startsWith(getString(R.string.zero)) &&
+                        screenTextView.text.length == 1)
+            ) {
                 screenTextView.text = view.text
             } else {
                 screenTextView.append(view.text)
@@ -36,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun operatorButtonClick(view: View) {
-        val screenTextView: TextView = findViewById<TextView>(R.id.screenTextView)
+        val screenTextView: TextView = findViewById(R.id.screenTextView)
         if (view is AppCompatButton) {
             if (!view.text.equals(getString(R.string.equals))) {
                 numberA = screenTextView.text.toString().toDouble()
@@ -53,15 +56,13 @@ class MainActivity : AppCompatActivity() {
                 if (operationType == OperationType.NONE)
                     return
                 numberB = screenTextView.text.toString().toDouble()
-                var operationResult = 0.0
-                if (operationType == OperationType.DIVIDE)
-                    operationResult = numberA / numberB
-                else if (operationType == OperationType.MULTIPLY)
-                    operationResult = numberA * numberB
-                else if (operationType == OperationType.MINUS)
-                    operationResult = numberA - numberB
-                else if (operationType == OperationType.PLUS)
-                    operationResult = numberA + numberB
+                val operationResult: Double = when (operationType) {
+                    OperationType.DIVIDE -> numberA / numberB
+                    OperationType.MULTIPLY -> numberA * numberB
+                    OperationType.MINUS -> numberA - numberB
+                    OperationType.PLUS -> numberA + numberB
+                    OperationType.NONE -> 0.0
+                }
                 Log.d("my_tag", "numberA = $numberA")
                 Log.d("my_tag", "operationType = $operationType")
                 Log.d("my_tag", "numberB = $numberB")

@@ -6,9 +6,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import kotlin.math.PI
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 enum class OperationType {
-    DIVIDE, MULTIPLY, MINUS, PLUS, NONE
+    POWER, DIVIDE, MULTIPLY, MINUS, PLUS, NONE
 }
 
 class MainActivity : AppCompatActivity() {
@@ -22,59 +25,133 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun numberButtonClick(view: View) {
+        // Знаходимо об'єкт screenTextView
         val screenTextView: TextView = findViewById(R.id.screenTextView)
+        // Якщо натиснутий елемент має тип AppCompatButton
         if (view is AppCompatButton) {
+
+            // Якщо натиснута кнопка '.'
             if (view.text.equals(getString(R.string.point))) {
-                if (!screenTextView.text.contains(getString(R.string.point)))
+                // Перевіряємо, чи в тексті на screenTextView є '.'
+                if (!screenTextView.text.contains(getString(R.string.point))) {
+                    // Дописуємо '.' в текст на screenTextView
                     screenTextView.append(getString(R.string.point))
-            } else if (screenTextView.text.startsWith(getString(R.string.zero)) &&
+                }
+            }
+
+            // Якщо в тексті на screenTextView є лише '0'
+            else if (screenTextView.text.startsWith(getString(R.string.zero)) &&
                 screenTextView.text.length == 1
             ) {
+                // Замінюємо '0' на текст натиснутої кнопки
                 screenTextView.text = view.text
-            } else {
+            }
+
+            // В інших випадках дописуємо текст натиснутої
+            // кнопки до тексту на screenTextView
+            else {
                 screenTextView.append(view.text)
             }
         }
     }
 
     fun controlButtonClick(view: View) {
+        // Знаходимо об'єкт screenTextView
         val screenTextView: TextView = findViewById(R.id.screenTextView)
+        // Якщо натиснутий елемент має тип AppCompatButton
         if (view is AppCompatButton) {
+
+            // Якщо натиснута кнопка 'C' (clear)
             if (view.text.equals(getString(R.string.cancel))) {
+                // Якщо в тексті на screenTextView є лише '0'
                 if (screenTextView.text.startsWith(getString(R.string.zero)) &&
                     screenTextView.text.length == 1
                 ) {
+                    // Повертаємо калькулятор у вихідний стан
                     operationType = OperationType.NONE
                     unhighlightOperatorButtons()
-                } else if (!screenTextView.text.equals(getString(R.string.zero))) {
+                }
+                // Якщо в тексті на screenTextView є певне число
+                else if (!screenTextView.text.equals(getString(R.string.zero))) {
+                    // Стираємо число на screenTextView, і пишемо '0'
                     screenTextView.text = getString(R.string.zero)
                 }
-            } else if (view.text.equals(getString(R.string.change_sign))) {
+            }
+
+            // Якщо натиснута кнопка '+/-' (change sign)
+            else if (view.text.equals(getString(R.string.change_sign))) {
+                // Якщо в тексті на screenTextView є лише '0', ігноруємо натискання
                 if (screenTextView.text.startsWith(getString(R.string.zero)) &&
                     screenTextView.text.length == 1
                 )
                     return
+                // Якщо текст на screenTextView починається з '-', стираємо цей '-'
                 if (screenTextView.text.startsWith('-'))
                     screenTextView.text = screenTextView.text.drop(1)
+                // Якщо текст на screenTextView не починається з '-', дописуємо '-'
                 else if (!screenTextView.text.startsWith('-'))
                     screenTextView.text = "-${screenTextView.text}"
-            } else if (view.text.equals(getString(R.string.percent))) {
+            }
+
+            // Якщо натиснута кнопка '%', обчислюємо [число на screenTextView] / 100
+            else if (view.text.equals(getString(R.string.percent))) {
                 var value = screenTextView.text.toString().toDouble()
                 value /= 100
+                // Виводимо результат обчислення на screenTextView
                 screenTextView.text = value.toString()
             }
+
+            // Якщо натиснута кнопка '!' (factorial)
+            else if (view.text.equals(getString(R.string.factorial))) {
+                // Якщо в тексті на screenTextView є '.', ігноруємо натискання
+                if (screenTextView.text.contains(getString(R.string.point)))
+                    return
+                // Обчислюємо факторіал [числа на screenTextView]
+                val value = screenTextView.text.toString().toInt()
+                var factorial: Long = 1
+                for (i in 1..value)
+                    factorial *= i
+                // Виводимо результат обчислення на screenTextView
+                screenTextView.text = factorial.toString()
+            }
+
+            // Якщо натиснута кнопка '√' (square_root)
+            else if (view.text.equals(getString(R.string.square_root))) {
+                // Якщо [число на screenTextView] < 0, ігноруємо натискання
+                if (screenTextView.text.startsWith('-'))
+                    return
+                // Обчислюємо sqrt([числа на screenTextView])
+                var value = screenTextView.text.toString().toDouble()
+                value = sqrt(value)
+                // Виводимо результат обчислення на screenTextView
+                screenTextView.text = value.toString()
+            }
+
+            // Якщо натиснута кнопка 'π' (pi), в тексті на screenTextView пишемо Pi
+            else if (view.text.equals(getString(R.string.pi)))
+                screenTextView.text = PI.toString()
         }
     }
 
     fun operatorButtonClick(view: View) {
+        // Знаходимо об'єкт screenTextView
         val screenTextView: TextView = findViewById(R.id.screenTextView)
+        // Якщо натиснутий елемент має тип AppCompatButton
         if (view is AppCompatButton) {
+
+            // Якщо натиснута кнопка не є '='
             if (!view.text.equals(getString(R.string.equals))) {
+                // Якщо в калькуляторі ще не записаний оператор
                 if (operationType == OperationType.NONE) {
+                    // Зберігаємо в змінну A число з screenTextView
                     numberA = screenTextView.text.toString().toDouble()
+                    // Стираємо число на screenTextView, і пишемо '0'
                     screenTextView.text = getString(R.string.zero)
                 }
-                if (view.text.equals(getString(R.string.divide)))
+                // Записуємо в калькулятор тип викликаного оператора
+                if (view.text.equals(getString(R.string.power)))
+                    operationType = OperationType.POWER
+                else if (view.text.equals(getString(R.string.divide)))
                     operationType = OperationType.DIVIDE
                 else if (view.text.equals(getString(R.string.multiply)))
                     operationType = OperationType.MULTIPLY
@@ -82,38 +159,59 @@ class MainActivity : AppCompatActivity() {
                     operationType = OperationType.MINUS
                 else if (view.text.equals(getString(R.string.plus)))
                     operationType = OperationType.PLUS
+                // Виділяємо натиснуту кнопку оператора
                 highlightOperatorButton(operationType)
-            } else if (view.text.equals(getString(R.string.equals))) {
+            }
+
+            // Якщо натиснута кнопка є '='
+            else if (view.text.equals(getString(R.string.equals))) {
+                // Якщо в калькуляторі не записаний оператор, ігноруємо натискання
                 if (operationType == OperationType.NONE)
                     return
+                // Зберігаємо в змінну B число з screenTextView
                 numberB = screenTextView.text.toString().toDouble()
+                // Деактивуємо виділення кнопки оператора
                 unhighlightOperatorButtons()
+                // Обчислюємо результат відповідно до обраного оператора
                 val operationResult: Double = when (operationType) {
+                    OperationType.POWER -> numberA.pow(numberB)
                     OperationType.DIVIDE -> numberA / numberB
                     OperationType.MULTIPLY -> numberA * numberB
                     OperationType.MINUS -> numberA - numberB
                     OperationType.PLUS -> numberA + numberB
                     OperationType.NONE -> 0.0
                 }
+                // Записуємо змінні (A B), оператор та результат в консоль
                 Log.d("console", "numberA = $numberA")
                 Log.d("console", "operationType = $operationType")
                 Log.d("console", "numberB = $numberB")
                 Log.d("console", "operationResult = $operationResult")
+                // Виводимо результат обчислення на screenTextView
                 screenTextView.text = operationResult.toString()
+                // Видаляємо записаний оператор - калькулятор у вихідному стані
                 operationType = OperationType.NONE
             }
         }
     }
 
     private fun highlightOperatorButton(operationType: OperationType) {
+        // Деактивуємо виділення усіх кнопок операторів
         unhighlightOperatorButtons()
 
+        // Знаходимо об'єкти кнопок операторів
+        val powerButton: AppCompatButton = findViewById(R.id.powerButton)
         val divideButton: AppCompatButton = findViewById(R.id.divideButton)
         val multiplyButton: AppCompatButton = findViewById(R.id.multiplyButton)
         val minusButton: AppCompatButton = findViewById(R.id.minusButton)
         val plusButton: AppCompatButton = findViewById(R.id.plusButton)
 
+        // Виділяємо кнопку викликаного оператора
         when (operationType) {
+            OperationType.POWER -> {
+                powerButton.setBackgroundColor(getColor(R.color.operator_button_highlighted))
+                powerButton.setTextColor(getColor(R.color.black))
+            }
+
             OperationType.DIVIDE -> {
                 divideButton.setBackgroundColor(getColor(R.color.operator_button_highlighted))
                 divideButton.setTextColor(getColor(R.color.black))
@@ -139,10 +237,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun unhighlightOperatorButtons() {
+        // Знаходимо об'єкти кнопок операторів
+        val powerButton: AppCompatButton = findViewById(R.id.powerButton)
         val divideButton: AppCompatButton = findViewById(R.id.divideButton)
         val multiplyButton: AppCompatButton = findViewById(R.id.multiplyButton)
         val minusButton: AppCompatButton = findViewById(R.id.minusButton)
         val plusButton: AppCompatButton = findViewById(R.id.plusButton)
+
+        // Деактивуємо виділення усіх кнопок операторів
+        powerButton.setBackgroundColor(getColor(R.color.operator_button_normal))
+        powerButton.setTextColor(getColor(R.color.white))
 
         divideButton.setBackgroundColor(getColor(R.color.operator_button_normal))
         divideButton.setTextColor(getColor(R.color.white))

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,15 +27,15 @@
     <LinearLayout style="@style/rowForButtons">
         <androidx.appcompat.widget.AppCompatButton
             style="@style/controlButton"
-            android:text="C" />
+            android:text="@string/cancel" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/controlButton"
-            android:text="+/–" />
+            android:text="@string/change_sign" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/controlButton"
-            android:text="%" />
+            android:text="@string/percent" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/operatorButton"
@@ -45,15 +44,15 @@
     <LinearLayout style="@style/rowForButtons">
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="7" />
+            android:text="@string/seven" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="8" />
+            android:text="@string/eight" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="9" />
+            android:text="@string/nine" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/operatorButton"
@@ -63,15 +62,15 @@
     <LinearLayout style="@style/rowForButtons">
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="4" />
+            android:text="@string/four" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="5" />
+            android:text="@string/five" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="6" />
+            android:text="@string/six" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/operatorButton"
@@ -81,15 +80,15 @@
     <LinearLayout style="@style/rowForButtons">
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="1" />
+            android:text="@string/one" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="2" />
+            android:text="@string/two" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="3" />
+            android:text="@string/three" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/operatorButton"
@@ -101,7 +100,7 @@
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
             android:layout_weight="2"
-            android:text="0" />
+            android:text="@string/zero" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"

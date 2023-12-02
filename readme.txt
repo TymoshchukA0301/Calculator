@@ -1,3 +1,11 @@
+Project information:
+    Name ........................... Calculator
+    Activity ....................... Empty Views Activity
+    Package name ................... com.example.calculator
+    Language ....................... Kotlin
+    Minimum SDK .................... API 34
+    Build configuration language ... Kotlin DSL (build.gradle.kts)
+
 Інтерфейс калькулятора:
     —————————————
         Екран   0

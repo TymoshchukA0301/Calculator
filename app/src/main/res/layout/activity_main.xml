@@ -18,7 +18,7 @@
             android:id="@+id/screenTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/defaultScreenText"
+            android:text="@string/zero"
             android:textSize="50sp"
             android:textAlignment="textEnd"
             android:textColor="@color/white"/>
@@ -39,7 +39,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/operatorButton"
-            android:text="÷" />
+            android:text="@string/divide" />
     </LinearLayout>
     <LinearLayout style="@style/rowForButtons">
         <androidx.appcompat.widget.AppCompatButton
@@ -56,7 +56,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/operatorButton"
-            android:text="×" />
+            android:text="@string/multiply" />
     </LinearLayout>
 
     <LinearLayout style="@style/rowForButtons">
@@ -74,7 +74,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/operatorButton"
-            android:text="–" />
+            android:text="@string/minus" />
     </LinearLayout>
 
     <LinearLayout style="@style/rowForButtons">
@@ -92,7 +92,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/operatorButton"
-            android:text="+" />
+            android:text="@string/plus" />
     </LinearLayout>
 
     <LinearLayout style="@style/rowForButtons">
@@ -104,10 +104,10 @@
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="," />
+            android:text="@string/point" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/operatorButton"
-            android:text="=" />
+            android:text="@string/equals" />
     </LinearLayout>
 </LinearLayout>

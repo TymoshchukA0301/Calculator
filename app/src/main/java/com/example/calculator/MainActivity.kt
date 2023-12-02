@@ -35,8 +35,23 @@ class MainActivity : AppCompatActivity() {
             } else {
                 screenTextView.append(view.text)
             }
-            if (operationType != OperationType.NONE)
-                unhighlightOperatorButtons()
+        }
+    }
+
+    fun controlButtonClick(view: View) {
+        val screenTextView: TextView = findViewById(R.id.screenTextView)
+        if (view is AppCompatButton) {
+            if (view.text.equals(getString(R.string.cancel))) {
+                if (screenTextView.text.equals(getString(R.string.zero)) ||
+                    (screenTextView.text.startsWith(getString(R.string.zero)) &&
+                            screenTextView.text.length == 1)
+                ) {
+                    operationType = OperationType.NONE
+                    unhighlightOperatorButtons()
+                } else if (!screenTextView.text.equals(getString(R.string.zero))) {
+                    screenTextView.text = getString(R.string.zero)
+                }
+            }
         }
     }
 

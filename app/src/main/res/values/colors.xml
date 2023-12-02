@@ -2,5 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="material_gray_900">#212121</color>
+    <color name="app_background">#212121</color>
+    <color name="operator_button_normal">#ef6c00</color>
+    <color name="operator_button_highlighted">#fff3e0</color>
 </resources>

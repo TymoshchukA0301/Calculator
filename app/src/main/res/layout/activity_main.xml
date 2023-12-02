@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_background"
     android:orientation="vertical"
-    android:background="@color/material_gray_900"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -17,14 +17,15 @@
             android:id="@+id/screenTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
             android:text="@string/zero"
-            android:textSize="50sp"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
-            android:fontFamily="@font/nunito_regular"/>
+            android:textSize="50sp" />
     </LinearLayout>
 
     <LinearLayout style="@style/rowForButtons">
+
         <androidx.appcompat.widget.AppCompatButton
             style="@style/controlButton"
             android:text="@string/cancel" />
@@ -38,10 +39,26 @@
             android:text="@string/percent" />
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/controlButton"
+            android:text="@string/factorial" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/controlButton"
+            android:text="@string/square_root" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/controlButton"
+            android:text="@string/pi" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/powerButton"
             style="@style/operatorButton"
-            android:text="@string/divide" />
+            android:layout_weight="2"
+            android:text="@string/power" />
     </LinearLayout>
+
     <LinearLayout style="@style/rowForButtons">
+
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
             android:text="@string/seven" />
@@ -55,11 +72,13 @@
             android:text="@string/nine" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/divideButton"
             style="@style/operatorButton"
-            android:text="@string/multiply" />
+            android:text="@string/divide" />
     </LinearLayout>
 
     <LinearLayout style="@style/rowForButtons">
+
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
             android:text="@string/four" />
@@ -73,11 +92,13 @@
             android:text="@string/six" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/multiplyButton"
             style="@style/operatorButton"
-            android:text="@string/minus" />
+            android:text="@string/multiply" />
     </LinearLayout>
 
     <LinearLayout style="@style/rowForButtons">
+
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
             android:text="@string/one" />
@@ -91,23 +112,28 @@
             android:text="@string/three" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/minusButton"
             style="@style/operatorButton"
-            android:text="@string/plus" />
+            android:text="@string/minus" />
     </LinearLayout>
 
     <LinearLayout style="@style/rowForButtons">
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:layout_weight="2"
-            android:text="@string/zero" />
+            android:text="@string/point" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/numberButton"
-            android:text="@string/point" />
+            android:text="@string/zero" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/operatorButton"
             android:text="@string/equals" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/plusButton"
+            style="@style/operatorButton"
+            android:text="@string/plus" />
     </LinearLayout>
 </LinearLayout>

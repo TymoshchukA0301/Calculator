@@ -2,6 +2,7 @@
     <string name="app_name">Calculator</string>
     <string name="zero">0</string>
     <string name="point">.</string>
+    <string name="power">^</string>
     <string name="divide">÷</string>
     <string name="multiply">×</string>
     <string name="minus">–</string>
@@ -10,6 +11,9 @@
     <string name="cancel">C</string>
     <string name="change_sign">+/–</string>
     <string name="percent">%</string>
+    <string name="factorial">!</string>
+    <string name="square_root">√</string>
+    <string name="pi">π</string>
     <string name="seven">7</string>
     <string name="eight">8</string>
     <string name="nine">9</string>

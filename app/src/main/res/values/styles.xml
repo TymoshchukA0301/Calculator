@@ -14,6 +14,7 @@
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:onClick">numberButtonClick</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
     </style>
 
     <style name="controlButton">
@@ -23,6 +24,7 @@
         <item name="android:background">#616161</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
     </style>
 
     <style name="operatorButton">
@@ -33,5 +35,6 @@
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:onClick">operatorButtonClick</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
     </style>
 </resources>

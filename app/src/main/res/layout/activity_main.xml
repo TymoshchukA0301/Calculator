@@ -21,7 +21,8 @@
             android:text="@string/zero"
             android:textSize="50sp"
             android:textAlignment="textEnd"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:fontFamily="@font/nunito_regular"/>
     </LinearLayout>
 
     <LinearLayout style="@style/rowForButtons">

@@ -27,9 +27,8 @@ class MainActivity : AppCompatActivity() {
             if (view.text.equals(getString(R.string.point))) {
                 if (!screenTextView.text.contains(getString(R.string.point)))
                     screenTextView.append(getString(R.string.point))
-            } else if (screenTextView.text.equals(getString(R.string.zero)) ||
-                (screenTextView.text.startsWith(getString(R.string.zero)) &&
-                        screenTextView.text.length == 1)
+            } else if (screenTextView.text.startsWith(getString(R.string.zero)) &&
+                screenTextView.text.length == 1
             ) {
                 screenTextView.text = view.text
             } else {
@@ -42,15 +41,27 @@ class MainActivity : AppCompatActivity() {
         val screenTextView: TextView = findViewById(R.id.screenTextView)
         if (view is AppCompatButton) {
             if (view.text.equals(getString(R.string.cancel))) {
-                if (screenTextView.text.equals(getString(R.string.zero)) ||
-                    (screenTextView.text.startsWith(getString(R.string.zero)) &&
-                            screenTextView.text.length == 1)
+                if (screenTextView.text.startsWith(getString(R.string.zero)) &&
+                    screenTextView.text.length == 1
                 ) {
                     operationType = OperationType.NONE
                     unhighlightOperatorButtons()
                 } else if (!screenTextView.text.equals(getString(R.string.zero))) {
                     screenTextView.text = getString(R.string.zero)
                 }
+            } else if (view.text.equals(getString(R.string.change_sign))) {
+                if (screenTextView.text.startsWith(getString(R.string.zero)) &&
+                    screenTextView.text.length == 1
+                )
+                    return
+                if (screenTextView.text.startsWith('-'))
+                    screenTextView.text = screenTextView.text.drop(1)
+                else if (!screenTextView.text.startsWith('-'))
+                    screenTextView.text = "-${screenTextView.text}"
+            } else if (view.text.equals(getString(R.string.percent))) {
+                var value = screenTextView.text.toString().toDouble()
+                value /= 100
+                screenTextView.text = value.toString()
             }
         }
     }

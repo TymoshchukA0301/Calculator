@@ -5,6 +5,7 @@ Project information:
     Language ....................... Kotlin
     Minimum SDK .................... API 34
     Build configuration language ... Kotlin DSL (build.gradle.kts)
+    Author ......................... Anton Tymoshchuk (https://github.com/TymoshchukA0301)
 
 Інтерфейс калькулятора:
     —————————————

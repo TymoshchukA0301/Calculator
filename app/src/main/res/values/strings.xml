@@ -9,7 +9,7 @@
     <string name="plus">+</string>
     <string name="equals">=</string>
     <string name="cancel">C</string>
-    <string name="change_sign">+/–</string>
+    <string name="change_sign">±</string>
     <string name="percent">%</string>
     <string name="factorial">!</string>
     <string name="square_root">√</string>

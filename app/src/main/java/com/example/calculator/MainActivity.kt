@@ -18,20 +18,20 @@ class MainActivity : AppCompatActivity() {
     private var numberA = 0.0
     private var operationType = OperationType.NONE
     private var numberB = 0.0
+    private lateinit var screenTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        screenTextView = findViewById(R.id.screenTextView)
     }
 
     fun numberButtonClick(view: View) {
-        // Знаходимо об'єкт screenTextView
-        val screenTextView: TextView = findViewById(R.id.screenTextView)
         // Якщо натиснутий елемент має тип AppCompatButton
         if (view is AppCompatButton) {
 
             // Якщо натиснута кнопка '.'
-            if (view.text.equals(getString(R.string.point))) {
+            if (view.id == R.id.pointButton) {
                 // Перевіряємо, чи в тексті на screenTextView є '.'
                 if (!screenTextView.text.contains(getString(R.string.point))) {
                     // Дописуємо '.' в текст на screenTextView
@@ -56,13 +56,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun controlButtonClick(view: View) {
-        // Знаходимо об'єкт screenTextView
-        val screenTextView: TextView = findViewById(R.id.screenTextView)
         // Якщо натиснутий елемент має тип AppCompatButton
         if (view is AppCompatButton) {
 
             // Якщо натиснута кнопка 'C' (clear)
-            if (view.text.equals(getString(R.string.cancel))) {
+            if (view.id == R.id.cancelButton) {
                 // Якщо в тексті на screenTextView є лише '0'
                 if (screenTextView.text.startsWith(getString(R.string.zero)) &&
                     screenTextView.text.length == 1
@@ -79,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             // Якщо натиснута кнопка '+/-' (change sign)
-            else if (view.text.equals(getString(R.string.change_sign))) {
+            else if (view.id == R.id.changeSignButton) {
                 // Якщо в тексті на screenTextView є лише '0', ігноруємо натискання
                 if (screenTextView.text.startsWith(getString(R.string.zero)) &&
                     screenTextView.text.length == 1
@@ -94,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             // Якщо натиснута кнопка '%', обчислюємо [число на screenTextView] / 100
-            else if (view.text.equals(getString(R.string.percent))) {
+            else if (view.id == R.id.percentButton) {
                 var value = screenTextView.text.toString().toDouble()
                 value /= 100
                 // Виводимо результат обчислення на screenTextView
@@ -102,7 +100,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             // Якщо натиснута кнопка '!' (factorial)
-            else if (view.text.equals(getString(R.string.factorial))) {
+            else if (view.id == R.id.factorialButton) {
                 // Якщо в тексті на screenTextView є '.', ігноруємо натискання
                 if (screenTextView.text.contains(getString(R.string.point)))
                     return
@@ -116,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             // Якщо натиснута кнопка '√' (square_root)
-            else if (view.text.equals(getString(R.string.square_root))) {
+            else if (view.id == R.id.rootButton) {
                 // Якщо [число на screenTextView] < 0, ігноруємо натискання
                 if (screenTextView.text.startsWith('-'))
                     return
@@ -128,19 +126,17 @@ class MainActivity : AppCompatActivity() {
             }
 
             // Якщо натиснута кнопка 'π' (pi), в тексті на screenTextView пишемо Pi
-            else if (view.text.equals(getString(R.string.pi)))
+            else if (view.id == R.id.piButton)
                 screenTextView.text = PI.toString()
         }
     }
 
     fun operatorButtonClick(view: View) {
-        // Знаходимо об'єкт screenTextView
-        val screenTextView: TextView = findViewById(R.id.screenTextView)
         // Якщо натиснутий елемент має тип AppCompatButton
         if (view is AppCompatButton) {
 
             // Якщо натиснута кнопка не є '='
-            if (!view.text.equals(getString(R.string.equals))) {
+            if (view.id != R.id.equalsButton) {
                 // Якщо в калькуляторі ще не записаний оператор
                 if (operationType == OperationType.NONE) {
                     // Зберігаємо в змінну A число з screenTextView
@@ -149,22 +145,22 @@ class MainActivity : AppCompatActivity() {
                     screenTextView.text = getString(R.string.zero)
                 }
                 // Записуємо в калькулятор тип викликаного оператора
-                if (view.text.equals(getString(R.string.power)))
+                if (view.id == R.id.powerButton)
                     operationType = OperationType.POWER
-                else if (view.text.equals(getString(R.string.divide)))
+                else if (view.id == R.id.divideButton)
                     operationType = OperationType.DIVIDE
-                else if (view.text.equals(getString(R.string.multiply)))
+                else if (view.id == R.id.multiplyButton)
                     operationType = OperationType.MULTIPLY
-                else if (view.text.equals(getString(R.string.minus)))
+                else if (view.id == R.id.minusButton)
                     operationType = OperationType.MINUS
-                else if (view.text.equals(getString(R.string.plus)))
+                else if (view.id == R.id.plusButton)
                     operationType = OperationType.PLUS
                 // Виділяємо натиснуту кнопку оператора
                 highlightOperatorButton(operationType)
             }
 
             // Якщо натиснута кнопка є '='
-            else if (view.text.equals(getString(R.string.equals))) {
+            else if (view.id == R.id.equalsButton) {
                 // Якщо в калькуляторі не записаний оператор, ігноруємо натискання
                 if (operationType == OperationType.NONE)
                     return

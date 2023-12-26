@@ -27,26 +27,32 @@
     <LinearLayout style="@style/rowForButtons">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancelButton"
             style="@style/controlButton"
             android:text="@string/cancel" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/changeSignButton"
             style="@style/controlButton"
             android:text="@string/change_sign" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/percentButton"
             style="@style/controlButton"
             android:text="@string/percent" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/factorialButton"
             style="@style/controlButton"
             android:text="@string/factorial" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/rootButton"
             style="@style/controlButton"
             android:text="@string/square_root" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/piButton"
             style="@style/controlButton"
             android:text="@string/pi" />
 
@@ -60,14 +66,17 @@
     <LinearLayout style="@style/rowForButtons">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number7Button"
             style="@style/numberButton"
             android:text="@string/seven" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number8Button"
             style="@style/numberButton"
             android:text="@string/eight" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number9Button"
             style="@style/numberButton"
             android:text="@string/nine" />
 
@@ -80,14 +89,17 @@
     <LinearLayout style="@style/rowForButtons">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number4Button"
             style="@style/numberButton"
             android:text="@string/four" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number5Button"
             style="@style/numberButton"
             android:text="@string/five" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number6Button"
             style="@style/numberButton"
             android:text="@string/six" />
 
@@ -100,14 +112,17 @@
     <LinearLayout style="@style/rowForButtons">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number1Button"
             style="@style/numberButton"
             android:text="@string/one" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number2Button"
             style="@style/numberButton"
             android:text="@string/two" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number3Button"
             style="@style/numberButton"
             android:text="@string/three" />
 
@@ -120,14 +135,17 @@
     <LinearLayout style="@style/rowForButtons">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/pointButton"
             style="@style/numberButton"
             android:text="@string/point" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number0Button"
             style="@style/numberButton"
             android:text="@string/zero" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/equalsButton"
             style="@style/operatorButton"
             android:text="@string/equals" />
 

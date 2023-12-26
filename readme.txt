@@ -3,7 +3,7 @@ Project information:
     Activity ....................... Empty Views Activity
     Package name ................... com.example.calculator
     Language ....................... Kotlin
-    Minimum SDK .................... API 34
+    Minimum SDK .................... API 26
     Build configuration language ... Kotlin DSL (build.gradle.kts)
     Author ......................... Anton Tymoshchuk (https://github.com/TymoshchukA0301)
 

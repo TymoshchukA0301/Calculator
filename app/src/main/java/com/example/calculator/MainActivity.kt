@@ -166,6 +166,9 @@ class MainActivity : AppCompatActivity() {
                     return
                 // Зберігаємо в змінну B число з screenTextView
                 numberB = screenTextView.text.toString().toDouble()
+                // Якщо відбувається ділення на 0, ігноруємо натискання
+                if (operationType == OperationType.DIVIDE && numberB == 0.0)
+                    return
                 // Деактивуємо виділення кнопки оператора
                 unhighlightOperatorButtons()
                 // Обчислюємо результат відповідно до обраного оператора

@@ -2,10 +2,12 @@ package com.example.calculator
 
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.google.android.material.internal.TextScale
 import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -14,11 +16,22 @@ enum class OperationType {
     POWER, DIVIDE, MULTIPLY, MINUS, PLUS, NONE
 }
 
+// Тексти повідомлень про помилки
+const val lessThanZero = "Number is less than 0"
+const val notInteger = "Number is not integer"
+const val divisionByZero = "Can't divide on 0"
+
 class MainActivity : AppCompatActivity() {
+    // Число А
     private var numberA = 0.0
+    // Математичний оператор
     private var operationType = OperationType.NONE
+    // Число В
     private var numberB = 0.0
+    // Об'єкт ScreenTextView
     private lateinit var screenTextView: TextView
+    // Чи відображається зараз помилка
+    private var displayingError = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +45,10 @@ class MainActivity : AppCompatActivity() {
 
             // Якщо натиснута кнопка '.'
             if (view.id == R.id.pointButton) {
+                // Якщо на screenTextView відображений текст помилки,
+                // ігноруємо це натискання
+                if (displayingError)
+                    return
                 // Перевіряємо, чи в тексті на screenTextView є '.'
                 if (!screenTextView.text.contains(getString(R.string.point))) {
                     // Дописуємо '.' в текст на screenTextView
@@ -50,7 +67,14 @@ class MainActivity : AppCompatActivity() {
             // В інших випадках дописуємо текст натиснутої
             // кнопки до тексту на screenTextView
             else {
-                screenTextView.append(view.text)
+                // Якщо на screenTextView відображений текст помилки,
+                // замінюємо його на текст натиснутої кнопки
+                if (displayingError)
+                    screenTextView.text = view.text
+                else
+                    screenTextView.append(view.text)
+                displayingError = false
+                setScreenTextViewFontSize()
             }
         }
     }
@@ -74,6 +98,8 @@ class MainActivity : AppCompatActivity() {
                     // Стираємо число на screenTextView, і пишемо '0'
                     screenTextView.text = getString(R.string.zero)
                 }
+                displayingError = false
+                setScreenTextViewFontSize()
             }
 
             // Якщо натиснута кнопка '+/-' (change sign)
@@ -101,9 +127,20 @@ class MainActivity : AppCompatActivity() {
 
             // Якщо натиснута кнопка '!' (factorial)
             else if (view.id == R.id.factorialButton) {
-                // Якщо в тексті на screenTextView є '.', ігноруємо натискання
-                if (screenTextView.text.contains(getString(R.string.point)))
+                // Якщо в тексті на screenTextView є '.', виводимо повідомлення про помилку
+                if (screenTextView.text.contains(getString(R.string.point))) {
+                    screenTextView.text = notInteger
+                    displayingError = true
+                    setScreenTextViewFontSize()
                     return
+                }
+                // Якщо [число на screenTextView] < 0, виводимо повідомлення про помилку
+                if (screenTextView.text.startsWith('-')) {
+                    screenTextView.text = lessThanZero
+                    displayingError = true
+                    setScreenTextViewFontSize()
+                    return
+                }
                 // Обчислюємо факторіал [числа на screenTextView]
                 val value = screenTextView.text.toString().toInt()
                 var factorial: Long = 1
@@ -115,9 +152,13 @@ class MainActivity : AppCompatActivity() {
 
             // Якщо натиснута кнопка '√' (square_root)
             else if (view.id == R.id.rootButton) {
-                // Якщо [число на screenTextView] < 0, ігноруємо натискання
-                if (screenTextView.text.startsWith('-'))
+                // Якщо [число на screenTextView] < 0, виводимо повідомлення про помилку
+                if (screenTextView.text.startsWith('-')) {
+                    screenTextView.text = lessThanZero
+                    displayingError = true
+                    setScreenTextViewFontSize()
                     return
+                }
                 // Обчислюємо sqrt([числа на screenTextView])
                 var value = screenTextView.text.toString().toDouble()
                 value = sqrt(value)
@@ -137,6 +178,10 @@ class MainActivity : AppCompatActivity() {
 
             // Якщо натиснута кнопка не є '='
             if (view.id != R.id.equalsButton) {
+                // Якщо на screenTextView відображений текст помилки,
+                // ігноруємо це натискання
+                if (displayingError)
+                    return
                 // Якщо в калькуляторі ще не записаний оператор
                 if (operationType == OperationType.NONE) {
                     // Зберігаємо в змінну A число з screenTextView
@@ -161,16 +206,23 @@ class MainActivity : AppCompatActivity() {
 
             // Якщо натиснута кнопка є '='
             else if (view.id == R.id.equalsButton) {
-                // Якщо в калькуляторі не записаний оператор, ігноруємо натискання
-                if (operationType == OperationType.NONE)
+                // Якщо в калькуляторі не записаний оператор або на
+                // screenTextView відображений текст помилки, ігноруємо натискання
+                if (operationType == OperationType.NONE || displayingError)
                     return
                 // Зберігаємо в змінну B число з screenTextView
                 numberB = screenTextView.text.toString().toDouble()
-                // Якщо відбувається ділення на 0, ігноруємо натискання
-                if (operationType == OperationType.DIVIDE && numberB == 0.0)
-                    return
                 // Деактивуємо виділення кнопки оператора
                 unhighlightOperatorButtons()
+                // Якщо відбувається ділення на 0, виводимо повідомлення про помилку
+                if (operationType == OperationType.DIVIDE && numberB == 0.0) {
+                    screenTextView.text = divisionByZero
+                    displayingError = true
+                    setScreenTextViewFontSize()
+                    // Видаляємо записаний оператор - калькулятор у вихідному стані
+                    operationType = OperationType.NONE
+                    return
+                }
                 // Обчислюємо результат відповідно до обраного оператора
                 val operationResult: Double = when (operationType) {
                     OperationType.POWER -> numberA.pow(numberB)
@@ -187,6 +239,12 @@ class MainActivity : AppCompatActivity() {
                 Log.d("console", "operationResult = $operationResult")
                 // Виводимо результат обчислення на screenTextView
                 screenTextView.text = operationResult.toString()
+                // Якщо результат є цілим числом, забираємо ".0" в кінці
+                val subs = screenTextView.text.split(getString(R.string.point))
+                if (subs.count() == 2) {
+                    if (subs[1].startsWith(getString(R.string.zero)) && subs[1].length == 1)
+                        screenTextView.text = subs[0]
+                }
                 // Видаляємо записаний оператор - калькулятор у вихідному стані
                 operationType = OperationType.NONE
             }
@@ -258,5 +316,12 @@ class MainActivity : AppCompatActivity() {
 
         plusButton.setBackgroundColor(getColor(R.color.operator_button_normal))
         plusButton.setTextColor(getColor(R.color.white))
+    }
+
+    private fun setScreenTextViewFontSize() {
+        if (displayingError)
+            screenTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34f)
+        else
+            screenTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50f)
     }
 }
